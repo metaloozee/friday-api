@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["ESNext", "DOM"],
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+  },
+  "ts-node": {
+    "esm": true ,
+  },
+  "skipLibCheck": true
+}

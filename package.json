@@ -1,0 +1,17 @@
+{
+  "name": "friday-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "chalk": "^5.0.1",
+    "discord.js": "^14.1.2",
+    "dotenv": "^16.0.1",
+    "fastify": "^4.3.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0"
+  }
+}
