@@ -1,10 +1,11 @@
 import * as dotenv from "dotenv";
-import Discord, { Client, Collection, Interaction } from "discord.js";
+import Discord, { Client, Collection, GuildMember, Interaction, User } from "discord.js";
 import chalk from "chalk";
 import { REST } from "@discordjs/rest";
 import { fileURLToPath } from "node:url";
 import fs from "node:fs";
 import path from "node:path";
+import { data } from "./@types/userData.js";
 
 dotenv.config();
 
@@ -56,7 +57,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
 
     try {
         await console.log(chalk.gray(`Command used: /${interaction.commandName}, by: ${interaction.member.user.username}`))
-        await command.execute(interaction as Interaction);
+        await command.execute(interaction);
     } catch (err) {
         console.error(err);
         await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
@@ -64,3 +65,34 @@ client.on("interactionCreate", async (interaction: Interaction) => {
 })
 
 client.login(process.env.TOKEN);
+
+export async function getUserInfo(id: string): Promise<data> {
+    const member: GuildMember = await client.guilds.cache.get("990992314853908500").members.cache.get(id)
+    const data: data = {
+        user: {
+            id: member.user.id,
+            username: member.user.username,
+            discriminator: member.user.discriminator,
+            public_flags: member.user.flags.bitfield,
+            bot: member.user.bot,
+            avatar: member.user.displayAvatarURL(),
+            discord_status: member.presence.status
+        },
+        presence: {
+            spotify: {
+                track_id: member.presence.activities[0].party.id,
+                timestamps: {
+                    start: member.presence.activities[0].timestamps.start.toString(),
+                    end: member.presence.activities[0].timestamps.end.toString()
+                },
+                song: member.presence.activities[0].details,
+                artist: member.presence.activities[0].state,
+                album_name: member.presence.activities[0].assets.largeText,
+                album_cover_url: member.presence.activities[0].assets.largeImage
+            }
+        }
+    }
+
+    return data as data;
+    
+}
