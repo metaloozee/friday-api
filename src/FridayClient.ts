@@ -31,11 +31,12 @@ export class Friday extends Client {
     };
 
     member.presence.activities.forEach((m) => {
+      console.log("m", m);
       const { name: currentActivity } = m;
-      console.log(currentActivity);
+      console.log();
       switch (currentActivity) {
         case "Spotify":
-          data.spotify_presence = {
+           data.spotify_presence = {
             track_id: m.party.id,
             timestamps: {
               start: m.timestamps.start.toString(),
@@ -46,6 +47,8 @@ export class Friday extends Client {
             album_name: m.assets.largeText,
             album_cover_url: m.assets.largeImage,
           };
+        break;
+        
 
         case "Visual Studio Code":
           data.vsc_presence = {
@@ -60,6 +63,7 @@ export class Friday extends Client {
             large_image: m.assets.largeImage,
             small_image: m.assets.smallImage,
           };
+        break;
       }
     });
 

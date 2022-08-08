@@ -14,7 +14,8 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "ts-node ./src/index.ts"
+    "dev": "ts-node ./src/index.ts",
+    "watch": "nodemon ./src/index.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0"
