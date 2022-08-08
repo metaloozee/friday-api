@@ -14,7 +14,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "ts-node index.ts"
+    "dev": "ts-node ./src/index.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0"

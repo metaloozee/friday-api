@@ -6,36 +6,43 @@ import { Friday } from "./FridayClient.js";
 // Schemas
 import { FridayResponseSchema } from "./schema/schema.js";
 
-
 const server: FastifyInstance = Fastify();
 const bot = new Friday({
-    intents: [
-        Discord.GatewayIntentBits.Guilds, 
-        Discord.GatewayIntentBits.GuildMembers, 
-        Discord.GatewayIntentBits.GuildPresences
-    ]
+  intents: [
+    Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMembers,
+    Discord.GatewayIntentBits.GuildPresences,
+  ],
 });
 
+/**
+ * userId - discord ID of user
+ */
+server.get<{
+  Params: {
+    userId: string;
+  };
+}>("/users/:userId", FridayResponseSchema, async (req, res) => {
+  const { userId } = req.params;
+  const data = await bot.getUserInfo(userId);
 
-
-server.get("/users/:params", FridayResponseSchema, async (req, res) => {
-    const param: any = req.params;
-    const data = await bot.getUserInfo(param.params);
-        
-    return { user: data.user, spotify_presence: data.spotify_presence, vsc_presence: data.vsc_presence }
-
+  return {
+    user: data.user,
+    spotify_presence: data.spotify_presence,
+    vsc_presence: data.vsc_presence,
+  };
 });
 
 (async () => {
-    try {
-        await bot.run();
-        await server.listen({ port: 3000 });
-        await console.log(chalk.green("Server listening on port 3000"));
-    } catch (err) {
-        server.log.error(err);
-    }
+  try {
+    await bot.run();
+    await server.listen({ port: 3000 });
+    await console.log(chalk.green("Server listening on port 3000"));
+  } catch (err) {
+    server.log.error(err);
+  }
 })();
 
 bot.on("ready", async (client: Friday) => {
-    await console.log(chalk.green(`Logged in as ${client.user.tag}`));
-})
+  await console.log(chalk.green(`Logged in as ${client.user.tag}`));
+});
