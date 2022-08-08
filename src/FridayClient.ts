@@ -1,7 +1,6 @@
 import * as dotenv from "dotenv";
 import { Client, GuildMember } from "discord.js";
-import { data } from "./@types/userData";
-import chalk from "chalk";
+import { FridayClientResponse } from "./@types/userData";
 
 dotenv.config();
 
@@ -17,7 +16,7 @@ export class Friday extends Client {
       .get(process.env.GUILD_ID)
       .members.cache.get(id);
 
-    const data: data = {
+    const data: FridayClientResponse = {
       user: {
         id: member.user.id,
         username: member.user.username,
@@ -67,6 +66,6 @@ export class Friday extends Client {
       }
     });
 
-    return data as data;
+    return data as FridayClientResponse;
   }
 }

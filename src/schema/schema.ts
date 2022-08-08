@@ -1,5 +1,11 @@
 import {RouteShorthandOptions} from 'fastify'
 
+
+
+/**
+ * Why hard type this anyway? What if the data schema changes?
+ * Hint: your app WILL crash
+ */
 export const FridayResponseSchema: RouteShorthandOptions = {
     schema: {
         response: {

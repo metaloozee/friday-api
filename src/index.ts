@@ -24,12 +24,12 @@ server.get<{
   };
 }>("/users/:userId", FridayResponseSchema, async (req, res) => {
   const { userId } = req.params;
-  const data = await bot.getUserInfo(userId);
+  const {user, spotify_presence, vsc_presence} = await bot.getUserInfo(userId);
 
   return {
-    user: data.user,
-    spotify_presence: data.spotify_presence,
-    vsc_presence: data.vsc_presence,
+    user: user,
+    spotify_presence: spotify_presence,
+    vsc_presence: vsc_presence,
   };
 });
 
