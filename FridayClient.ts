@@ -5,10 +5,13 @@ import chalk from "chalk";
 
 dotenv.config();
 
+
+const {TOKEN} = process.env
+
 export class Friday extends Client {
 
     run() {
-        this.login(process.env.token);
+        this.login(TOKEN);
     }
 
     async getUserInfo(id: string) {
