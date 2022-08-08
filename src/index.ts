@@ -39,7 +39,9 @@ server.get<{
     await server.listen({ port: 3000 });
     console.log(chalk.green("Server listening on port 3000"));
   } catch (err) {
-    server.log.error(err);
+    throw new Error(err, {
+      cause: err,
+    });
   }
 })();
 
