@@ -35,14 +35,14 @@ server.get<{
 
 (async () => {
   try {
-    await bot.run();
+    bot.run();
     await server.listen({ port: 3000 });
-    await console.log(chalk.green("Server listening on port 3000"));
+    console.log(chalk.green("Server listening on port 3000"));
   } catch (err) {
     server.log.error(err);
   }
 })();
 
-bot.on("ready", async (client: Friday) => {
-  await console.log(chalk.green(`Logged in as ${client.user.tag}`));
+bot.on("ready", (client: Friday) => {
+  console.log(chalk.green(`Logged in as ${client.user.tag}`));
 });
