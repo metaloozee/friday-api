@@ -13,7 +13,7 @@ let it clone then run the following commands:
 cd friday-api
 yarn install
 ```
-after running the above commands, you need to create a new file namely `.env` and add your `TOKEN` (Disocrd Bot Token), `GUILD_ID` (The Server's ID in which you want to setup Friday) & then `PORT` (The port you want to host the api on).
+after running the above commands, you need to create a new file namely `.env` and add your `TOKEN` (Disocrd Bot Token) & `GUILD_ID` (The Server's ID in which you want to setup Friday) 
 
 after configuring the `.env` file you are now good to run the application by running the following command
 ```
