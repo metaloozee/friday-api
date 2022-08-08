@@ -1,18 +1,12 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
-import chalk from "chalk";
-import Discord from "discord.js";
-import { Friday } from "./FridayClient.js";
+import {RouteShorthandOptions} from 'fastify'
 
-const server: FastifyInstance = Fastify();
-const bot = new Friday({
-    intents: [
-        Discord.GatewayIntentBits.Guilds, 
-        Discord.GatewayIntentBits.GuildMembers, 
-        Discord.GatewayIntentBits.GuildPresences
-    ]
-});
 
-const options: RouteShorthandOptions = {
+
+/**
+ * Why hard type this anyway? What if the data schema changes?
+ * Hint: your app WILL crash
+ */
+export const FridayResponseSchema: RouteShorthandOptions = {
     schema: {
         response: {
             200: {
@@ -71,25 +65,3 @@ const options: RouteShorthandOptions = {
         }
     }
 }
-
-server.get("/users/:params", options, async (req, res) => {
-    const param: any = req.params;
-    const data = await bot.getUserInfo(param.params);
-        
-    return { user: data.user, spotify_presence: data.spotify_presence, vsc_presence: data.vsc_presence }
-
-});
-
-(async () => {
-    try {
-        await bot.run();
-        await server.listen({ port: 3000 });
-        await console.log(chalk.green("Server listening on port 3000"));
-    } catch (err) {
-        server.log.error(err);
-    }
-})();
-
-bot.on("ready", async (client: Friday) => {
-    await console.log(chalk.green(`Logged in as ${client.user.tag}`));
-})

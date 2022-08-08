@@ -1,4 +1,4 @@
-export type data = {
+export type FridayClientResponse = {
     user: {
         id: string,
         username: string,
