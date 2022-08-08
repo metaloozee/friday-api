@@ -8,9 +8,16 @@ This is an open sourced repository initially made for educational purposes, we a
 In order to use Friday, you'd ideally need to install it on your local machine. To do so,
 
 * Clone the repository
+
 ```
 git clone https://github.com/MetalOoze05/friday-api.git
 ```
+
+Or if you have `gh` installed on your machine, you could instead run:
+```bash
+gh repo clone MetalOoze05/friday-api
+```
+
 * Once cloned, switch directory and install dependencies:
 
 ```bash
