@@ -68,6 +68,7 @@ client.login(process.env.TOKEN);
 
 export async function getUserInfo(id: string): Promise<data> {
     const member: GuildMember = await client.guilds.cache.get("990992314853908500").members.cache.get(id)
+    
     const data: data = {
         user: {
             id: member.user.id,
@@ -77,21 +78,26 @@ export async function getUserInfo(id: string): Promise<data> {
             bot: member.user.bot,
             avatar: member.user.displayAvatarURL(),
             discord_status: member.presence.status
-        },
-        presence: {
-            spotify: {
-                track_id: member.presence.activities[0].party.id,
-                timestamps: {
-                    start: member.presence.activities[0].timestamps.start.toString(),
-                    end: member.presence.activities[0].timestamps.end.toString()
-                },
-                song: member.presence.activities[0].details,
-                artist: member.presence.activities[0].state,
-                album_name: member.presence.activities[0].assets.largeText,
-                album_cover_url: member.presence.activities[0].assets.largeImage
-            }
         }
     }
+
+    member.presence.activities.forEach(m => {
+        if (m.name === "Spotify") {
+            data.presence = {
+                spotify: {
+                    track_id: member.presence.activities[0].party.id,
+                    timestamps: {
+                        start: member.presence.activities[0].timestamps.start.toString(),
+                        end: member.presence.activities[0].timestamps.end.toString()
+                    },
+                    song: member.presence.activities[0].details,
+                    artist: member.presence.activities[0].state,
+                    album_name: member.presence.activities[0].assets.largeText,
+                    album_cover_url: member.presence.activities[0].assets.largeImage
+                }
+            }
+        }
+    })
 
     return data as data;
     
