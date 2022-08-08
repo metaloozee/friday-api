@@ -1,6 +1,6 @@
 import {RouteShorthandOptions} from 'fastify'
 
-const options: RouteShorthandOptions = {
+export const FridayResponseSchema: RouteShorthandOptions = {
     schema: {
         response: {
             200: {
