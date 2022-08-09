@@ -1,11 +1,15 @@
+import * as dotenv from "dotenv";
 import express from "express";
 import chalk from "chalk";
 import Discord from "discord.js";
 import fs from "fs";
 import { Friday } from "../FridayClient.js";
 
+dotenv.config();
+
 const server = express();
-const PORT = 3000;
+const { PORT } = process.env;
+
 const bot = new Friday({
   intents: [
     Discord.GatewayIntentBits.Guilds,
@@ -32,9 +36,9 @@ export function createExpressServer() {
 try {
   createExpressServer();
   bot.run();
-  server.listen(PORT, () => {
+  server.listen(parseInt(PORT) || 8080, "0.0.0.0", () => {
     createExpressServer();
-    console.log(`Server listening on PORT ${PORT}`);
+    console.log(chalk.green(`Server listening on PORT ${PORT}`));
   });
 } catch (err) {
   throw new Error(err, {
