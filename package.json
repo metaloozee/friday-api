@@ -16,7 +16,8 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node ./src/index.ts",
-    "watch": "nodemon --exec tsx ./src/index.ts"
+    "watch": "nodemon --exec tsx ./src/index.ts",
+    "preview": "vercel dev"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0"
