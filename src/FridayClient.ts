@@ -12,11 +12,24 @@ export class Friday extends Client {
   }
 
   async getUserInfo(id: string) {
-    const member: GuildMember = this.guilds.cache
-      .get(process.env.GUILD_ID)
-      .members.cache.get(id);
+    let member: GuildMember;
 
-    const data: FridayClientResponse = {
+    try {
+      member = this.guilds.cache
+        .get(process.env.GUILD_ID)
+        .members.cache.get(id) as GuildMember;
+    } catch (err) {
+      return {
+        error: true,
+        message: `Are you sure user with ID ${id} is in a server the bot is set up in?`,
+      };
+    }
+
+    /**
+     * This does not need to be typed, I don't think.
+     *  The properties are already typed by the discord.js API
+     */
+    const finalData = {
       user: {
         id: member.user.id,
         username: member.user.username,
@@ -27,45 +40,13 @@ export class Friday extends Client {
         banner: member.user.bannerURL(),
         discord_status: member.presence.status,
       },
+      activites: [],
     };
 
     member.presence.activities.forEach((m) => {
-      console.log("m", m);
-      const { name: currentActivity } = m;
-      console.log();
-      switch (currentActivity) {
-        case "Spotify":
-           data.spotify_presence = {
-            track_id: m.party.id,
-            timestamps: {
-              start: m.timestamps.start.toString(),
-              end: m.timestamps.end.toString(),
-            },
-            song: m.details,
-            artist: m.state,
-            album_name: m.assets.largeText,
-            album_cover_url: m.assets.largeImage,
-          };
-        break;
-        
-
-        case "Visual Studio Code":
-          data.vsc_presence = {
-            details: m.details,
-            state: m.state,
-            timestamps: {
-              start: m.timestamps.start.toString(),
-              end: m.timestamps.end,
-            },
-            large_text: m.assets.largeText,
-            small_text: m.assets.smallText,
-            large_image: m.assets.largeImage,
-            small_image: m.assets.smallImage,
-          };
-        break;
-      }
+      return finalData.activites.push(m);
     });
 
-    return data as FridayClientResponse;
+    return finalData as FridayClientResponse;
   }
 }

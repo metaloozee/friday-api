@@ -21,26 +21,20 @@ server.get<{
   };
 }>("/users/:userId", async (req, res) => {
   const { userId } = req.params;
-  const {user, spotify_presence, vsc_presence} = await bot.getUserInfo(userId);
+  const finalData = await bot.getUserInfo(userId);
 
-  return {
-    user: user,
-    spotify_presence: spotify_presence,
-    vsc_presence: vsc_presence,
-  };
+  return finalData;
 });
 
-(async () => {
-  try {
-    bot.run();
-    await server.listen({ port: 3000 });
-    console.log(chalk.green("Server listening on port 3000"));
-  } catch (err) {
-    throw new Error(err, {
-      cause: err,
-    });
-  }
-})();
+try {
+  bot.run();
+  await server.listen({ port: 3000 });
+  console.log(chalk.green("Server listening on port 3000"));
+} catch (err) {
+  throw new Error(err, {
+    cause: err,
+  });
+}
 
 bot.on("ready", (client: Friday) => {
   console.log(chalk.green(`Logged in as ${client.user.tag}`));
