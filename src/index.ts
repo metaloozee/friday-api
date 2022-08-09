@@ -1,10 +1,7 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from "fastify";
+import Fastify, { FastifyInstance } from "fastify";
 import chalk from "chalk";
 import Discord from "discord.js";
 import { Friday } from "./FridayClient.js";
-
-// Schemas
-import { FridayResponseSchema } from "./schema/schema.js";
 
 const server: FastifyInstance = Fastify();
 const bot = new Friday({
@@ -22,7 +19,7 @@ server.get<{
   Params: {
     userId: string;
   };
-}>("/users/:userId", FridayResponseSchema, async (req, res) => {
+}>("/users/:userId", async (req, res) => {
   const { userId } = req.params;
   const {user, spotify_presence, vsc_presence} = await bot.getUserInfo(userId);
 
