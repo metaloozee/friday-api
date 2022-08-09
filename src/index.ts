@@ -26,17 +26,15 @@ server.get<{
   return finalData;
 });
 
-(async () => {
-  try {
-    bot.run();
-    await server.listen({ port: 3000 });
-    console.log(chalk.green("Server listening on port 3000"));
-  } catch (err) {
-    throw new Error(err, {
-      cause: err,
-    });
-  }
-})();
+try {
+  bot.run();
+  await server.listen({ port: 3000 });
+  console.log(chalk.green("Server listening on port 3000"));
+} catch (err) {
+  throw new Error(err, {
+    cause: err,
+  });
+}
 
 bot.on("ready", (client: Friday) => {
   console.log(chalk.green(`Logged in as ${client.user.tag}`));

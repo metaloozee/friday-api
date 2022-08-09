@@ -29,7 +29,6 @@ export class Friday extends Client {
      * This does not need to be typed, I don't think.
      *  The properties are already typed by the discord.js API
      */
-
     const finalData = {
       user: {
         id: member.user.id,
