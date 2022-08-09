@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from "fastify";
 import chalk from "chalk";
 import Discord from "discord.js";
 import fs from 'fs'
-import { Friday } from "./FridayClient";
+import { Friday } from "../FridayClient";
 
 const server: FastifyInstance = Fastify();
 const bot = new Friday({
@@ -34,7 +34,9 @@ export function createServer() {
   server.get("/", (req, res) => {
     const mainHTMLRoute = process.cwd() + "/public/index.html" 
     const bufferIndex = fs.readFileSync(mainHTMLRoute)
-    return res.type('text/html').send(bufferIndex);
+    return res.type('text/html').send(`
+    <h1>This page is served from a Fastify app!</h1> ${bufferIndex}
+`);
   });
 }
 

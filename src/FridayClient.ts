@@ -12,6 +12,12 @@ export class Friday extends Client {
   }
 
   async getUserInfo(id: string) {
+    if (!+id) {
+      return {
+        error: true,
+        message: `Provided ID ${id} is not a number.`,
+      };
+    }
     let member: GuildMember;
 
     try {
@@ -19,9 +25,10 @@ export class Friday extends Client {
         .get(process.env.GUILD_ID)
         .members.cache.get(id) as GuildMember;
     } catch (err) {
+      console.log(err.message);
       return {
         error: true,
-        message: `Are you sure user with ID ${id} is in a server the bot is set up in?`,
+        message: err.message,
       };
     }
 
