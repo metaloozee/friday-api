@@ -28,10 +28,13 @@ export function createServer() {
     return finalData;
   });
 
+  /**
+   * If deploying on GitHub Pages, just set root directory to public/
+   */
   server.get("/", (req, res) => {
     const mainHTMLRoute = process.cwd() + "/public/index.html" 
     const bufferIndex = fs.readFileSync(mainHTMLRoute)
-    res.type('text/html').send(bufferIndex);
+    return res.type('text/html').send(bufferIndex);
   });
 }
 
