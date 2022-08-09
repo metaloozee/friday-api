@@ -21,13 +21,9 @@ server.get<{
   };
 }>("/users/:userId", async (req, res) => {
   const { userId } = req.params;
-  const {user, spotify_presence, vsc_presence} = await bot.getUserInfo(userId);
+  const finalData = await bot.getUserInfo(userId);
 
-  return {
-    user: user,
-    spotify_presence: spotify_presence,
-    vsc_presence: vsc_presence,
-  };
+  return finalData
 });
 
 (async () => {
