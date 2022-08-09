@@ -9,10 +9,5 @@ export type FridayClientResponse = {
         banner: string,
         discord_status: string
     },
-    spotify_presence?: {
-        
-    },
-    vsc_presence?: {
-       
-    }
+    activites: []
 }

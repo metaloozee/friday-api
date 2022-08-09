@@ -23,7 +23,7 @@ server.get<{
   const { userId } = req.params;
   const finalData = await bot.getUserInfo(userId);
 
-  return finalData
+  return finalData;
 });
 
 (async () => {

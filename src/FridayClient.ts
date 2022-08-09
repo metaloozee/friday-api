@@ -12,11 +12,23 @@ export class Friday extends Client {
   }
 
   async getUserInfo(id: string) {
-    const member: GuildMember = this.guilds.cache
-      .get(process.env.GUILD_ID)
-      .members.cache.get(id);
+    let member: GuildMember;
 
-    // This does not need to be typed, I don't think.
+    try {
+      member = this.guilds.cache
+        .get(process.env.GUILD_ID)
+        .members.cache.get(id) as GuildMember;
+    } catch (err) {
+      return {
+        error: true,
+        message: `Are you sure user with ID ${id} is in a server the bot is set up in?`,
+      };
+    }
+
+    /**
+     * This does not need to be typed, I don't think.
+     *  The properties are already typed by the discord.js API
+     */
 
     const finalData = {
       user: {
