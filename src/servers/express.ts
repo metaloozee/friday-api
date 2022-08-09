@@ -2,7 +2,7 @@ import express from "express";
 import chalk from "chalk";
 import Discord from "discord.js";
 import fs from "fs";
-import { Friday } from "../FridayClient";
+import { Friday } from "../FridayClient.js";
 
 const server = express();
 const PORT = 3000;
@@ -25,9 +25,7 @@ export function createExpressServer() {
     server.get("/", (_, res) => {
         const mainHTMLRoute = process.cwd() + "/public/index.html" 
         const bufferIndex = fs.readFileSync(mainHTMLRoute)
-        return res.type('text/html').send(`
-            <h2>This page is served from an Express app!</h2> ${bufferIndex}
-        `);
+        return res.type('text/html').send(bufferIndex);
       });
 }
 
