@@ -1,6 +1,7 @@
 import Fastify, { FastifyInstance } from "fastify";
 import chalk from "chalk";
 import Discord from "discord.js";
+import fs from 'fs'
 import { Friday } from "./FridayClient";
 
 const server: FastifyInstance = Fastify();
@@ -25,6 +26,12 @@ export function createServer() {
     const finalData = await bot.getUserInfo(userId);
 
     return finalData;
+  });
+
+  server.get("/", (req, res) => {
+    const mainHTMLRoute = process.cwd() + "/public/index.html" 
+    const bufferIndex = fs.readFileSync(mainHTMLRoute)
+    res.type('text/html').send(bufferIndex);
   });
 }
 
