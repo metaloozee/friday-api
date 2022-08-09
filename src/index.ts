@@ -12,23 +12,27 @@ const bot = new Friday({
   ],
 });
 
-/**
- * userId - discord ID of user
- */
-server.get<{
-  Params: {
-    userId: string;
-  };
-}>("/users/:userId", async (req, res) => {
-  const { userId } = req.params;
-  const finalData = await bot.getUserInfo(userId);
+export function createServer() {
+  /**
+   * userId - discord ID of user
+   */
+  server.get<{
+    Params: {
+      userId: string;
+    };
+  }>("/api/users/:userId", async (req, res) => {
+   
+    const { userId } = req.params;
+    const finalData = await bot.getUserInfo(userId);
 
-  return finalData;
-});
+    return finalData;
+  });
+}
 
 try {
+  createServer()
   bot.run();
-  await server.listen({ port: 3000 });
+  server.listen({ port: 3000 });
   console.log(chalk.green("Server listening on port 3000"));
 } catch (err) {
   throw new Error(err, {
