@@ -25,10 +25,13 @@ export class Friday extends Client {
       };
     }
 
-    /**
-     * This does not need to be typed, I don't think.
-     *  The properties are already typed by the discord.js API
-     */
+    if (!member) {
+      return {
+        error: true,
+        message: `Are you sure user with ID ${id} is in a server the bot is set up in?`,
+      };
+    }
+
     const finalData = {
       user: {
         id: member.user.id,
@@ -38,12 +41,12 @@ export class Friday extends Client {
         bot: member.user.bot,
         avatar: member.user.displayAvatarURL(),
         banner: member.user.bannerURL(),
-        discord_status: member.presence.status,
+        discord_status: member.presence?.status || "offline",
       },
       activites: [],
     };
 
-    member.presence.activities.forEach((m) => {
+    member.presence?.activities.forEach((m) => {
       return finalData.activites.push(m);
     });
 

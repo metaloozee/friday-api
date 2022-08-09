@@ -1,7 +1,8 @@
 import Fastify, { FastifyInstance } from "fastify";
 import chalk from "chalk";
 import Discord from "discord.js";
-import { Friday } from "./FridayClient.js";
+import fs from 'fs'
+import { Friday } from "./FridayClient";
 
 const server: FastifyInstance = Fastify();
 const bot = new Friday({
@@ -12,23 +13,35 @@ const bot = new Friday({
   ],
 });
 
-/**
- * userId - discord ID of user
- */
-server.get<{
-  Params: {
-    userId: string;
-  };
-}>("/users/:userId", async (req, res) => {
-  const { userId } = req.params;
-  const finalData = await bot.getUserInfo(userId);
+export function createServer() {
+  /**
+   * userId - discord ID of user
+   */
+  server.get<{
+    Params: {
+      userId: string;
+    };
+  }>("/api/users/:userId", async (req, res) => {
+    const { userId } = req.params;
+    const finalData = await bot.getUserInfo(userId);
 
-  return finalData;
-});
+    return finalData;
+  });
+
+  /**
+   * If deploying on GitHub Pages, just set root directory to public/
+   */
+  server.get("/", (req, res) => {
+    const mainHTMLRoute = process.cwd() + "/public/index.html" 
+    const bufferIndex = fs.readFileSync(mainHTMLRoute)
+    return res.type('text/html').send(bufferIndex);
+  });
+}
 
 try {
+  createServer();
   bot.run();
-  await server.listen({ port: 3000 });
+  server.listen({ port: 3000 });
   console.log(chalk.green("Server listening on port 3000"));
 } catch (err) {
   throw new Error(err, {
