@@ -14,8 +14,8 @@
   },
   "type": "module",
   "scripts": {
-    "watch f": "npx tsx watch ./src/servers/fastify.ts",
-    "watch e": "npx tsx watch ./src/servers/express.ts"
+    "watch-f": "npx tsx watch ./src/servers/fastify.ts",
+    "watch-e": "npx tsx watch ./src/servers/express.ts"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
