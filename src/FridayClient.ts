@@ -50,10 +50,12 @@ export class Friday extends Client {
         banner: member.user.bannerURL(),
         discord_status: member.presence?.status || "offline",
       },
-      activites: [],
+      activites: [] ?? null,
     };
 
-    member.presence?.activities.forEach((m) => {
+    const allActivites = member.presence?.activities;
+
+    allActivites?.forEach((m) => {
       return finalData.activites.push(m);
     });
 
