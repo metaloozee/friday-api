@@ -46,6 +46,10 @@ try {
   });
 }
 
-bot.on("ready", (client: Friday) => {
+bot.on("ready", async (client: Friday) => {
+  await client.user.setPresence({
+    activities: [{ name: "your discord presence", type: Discord.ActivityType.Watching }],
+    status: 'idle'
+  })
   console.log(chalk.green(`Logged in as ${client.user.tag}`));
 });
