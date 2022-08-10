@@ -2,7 +2,7 @@ import Fastify, { FastifyInstance } from "fastify";
 import chalk from "chalk";
 import Discord from "discord.js";
 import fs from 'fs'
-import { Friday } from "../FridayClient.js";
+import { Friday } from "../FridayClient";
 
 const server: FastifyInstance = Fastify();
 const bot = new Friday({
@@ -13,7 +13,7 @@ const bot = new Friday({
   ],
 });
 
-export function createServer() {
+export function createFastifyServer() {
   /**
    * userId - discord ID of user
    */
@@ -39,7 +39,7 @@ export function createServer() {
 }
 
 try {
-  createServer();
+  createFastifyServer();
   bot.run();
   server.listen({ port: 3000 });
   console.log(chalk.green("Server listening on port 3000"));

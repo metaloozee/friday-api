@@ -3,7 +3,7 @@ import express from "express";
 import chalk from "chalk";
 import Discord from "discord.js";
 import fs from "fs";
-import { Friday } from "../FridayClient.js";
+import { Friday } from "../FridayClient";
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ export function createExpressServer() {
 try {
   createExpressServer();
   bot.run();
-  server.listen(parseInt(PORT) || 8080, "0.0.0.0", () => {
+  server.listen(+PORT || 8080, "0.0.0.0", () => {
     createExpressServer();
     console.log(chalk.green(`Server listening on PORT ${PORT}`));
   });
