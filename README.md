@@ -33,6 +33,8 @@ To run this project, you will need to add the following environment variables to
 `TOKEN` - Your Discord Bot token
 
 `GUILD_ID` - The Server's ID in which you want to setup Friday
+
+`PORT` - The port you want to run your server in. Defaults to `8080`.
  
 
 Once the environment variables are set, you're good to run Friday! To do so, run:

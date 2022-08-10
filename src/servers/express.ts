@@ -38,7 +38,7 @@ try {
   bot.run();
   server.listen(+PORT || 8080, "0.0.0.0", () => {
     createExpressServer();
-    console.log(chalk.green(`Server listening on PORT ${PORT}`));
+    console.log(chalk.green(`Server listening on PORT ${PORT || 8080}`));
   });
 } catch (err) {
   throw new Error(err, {
