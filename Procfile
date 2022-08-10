@@ -1,1 +1,1 @@
-web: ts-node ./src/servers/express.ts
+web: tsx ./src/servers/express.ts
