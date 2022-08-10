@@ -49,8 +49,8 @@ try {
   });
 }
 
-bot.on("ready", async (client: Friday) => {
-  await client.user.setPresence({
+bot.on("ready", (client: Friday) => {
+  client.user.setPresence({
     activities: [{ name: "your discord presence", type: Discord.ActivityType.Watching }],
     status: 'idle'
   })
