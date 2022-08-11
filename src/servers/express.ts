@@ -19,18 +19,14 @@ const bot = new Friday({
 });
 
 export function createExpressServer() {
-    server.get('/api/users/:userId', async (req, res) => {
-        const {userId} = req.params
-        const finalData = await bot.getUserInfo(userId);
+  server.get("/api/users/:userId", async (req, res) => {
+    const { userId } = req.params;
+    const finalData = await bot.getUserInfo(userId);
 
-        return res.status(200).json(finalData)
-    })
+    return res.status(200).json(finalData);
+  });
 
-    server.get("/", (_, res) => {
-        const mainHTMLRoute = process.cwd() + "/public/index.html" 
-        const bufferIndex = fs.readFileSync(mainHTMLRoute)
-        return res.type('text/html').send(bufferIndex);
-      });
+  server.use(express.static('public'))
 }
 
 try {
@@ -38,7 +34,7 @@ try {
   bot.run();
   server.listen(+PORT || 8080, "0.0.0.0", () => {
     createExpressServer();
-    console.log(chalk.green(`Server listening on PORT ${PORT}`));
+    console.log(chalk.green(`Server listening on PORT ${PORT || 8080}`));
   });
 } catch (err) {
   throw new Error(err, {
@@ -46,10 +42,12 @@ try {
   });
 }
 
-bot.on("ready", async (client: Friday) => {
-  await client.user.setPresence({
-    activities: [{ name: "your discord presence", type: Discord.ActivityType.Watching }],
-    status: 'idle'
-  })
+bot.on("ready", (client: Friday) => {
+  client.user.setPresence({
+    activities: [
+      { name: "your discord presence", type: Discord.ActivityType.Watching },
+    ],
+    status: "idle",
+  });
   console.log(chalk.green(`Logged in as ${client.user.tag}`));
 });
