@@ -26,11 +26,7 @@ export function createExpressServer() {
     return res.status(200).json(finalData);
   });
 
-  server.get("/", (_, res) => {
-    const mainHTMLRoute = process.cwd() + "/public/index.html";
-    const bufferIndex = fs.readFileSync(mainHTMLRoute);
-    return res.type("text/html").send(bufferIndex);
-  });
+  server.use(express.static('public'))
 }
 
 try {
