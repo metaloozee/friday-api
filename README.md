@@ -3,6 +3,8 @@ A REST API which provides you the information of any discord account including t
 
 This is an open sourced repository initially made for educational purposes, we are using Discord.js & Fastify to make this, if you would like to collaborate or want to implement more things you are free to fork this repository and submit a Push Request when you feel you are good to go!
 
+We also have a public API, if you'd like to use it then please join our support server in order to get access by [clicking here](https://discord.gg/WkWZ9Y4P62).
+
 ## Installing
 
 In order to use Friday, you'd ideally need to install it on your local machine. To do so,
